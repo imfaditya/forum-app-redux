@@ -1,0 +1,15 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+
+  img {
+    width: 120px;
+  }
+
+  svg {
+    color: white;
+    font-size: 1.7em;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,29 @@
+@use '__authCard.scss';
+@use '__navBar.scss';
+@use '__popularCategory.scss';
+@use '__thread.scss';
+
+$background: #000000;
+
+
+body {
+  background-color: $background;
+  max-width: 1000px;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  margin: auto;
+  padding: 0 10px;
+}
+
+h2, h3 {
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+p, span {
+  font-weight: 200;
+  color: white;
+  font-size: 15px;
+}
+
