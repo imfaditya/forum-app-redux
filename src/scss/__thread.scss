@@ -1,0 +1,38 @@
+$background: #141414;
+$pink: #D3204B;
+
+.thread-item {
+  background-color: $background;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+
+
+  h3 {
+    margin: 10px 0;
+  }
+
+  svg {
+    color: white;
+    margin-right: 10px;
+    font-size: 1.5em;
+    padding: 5px;
+  }
+
+  span {
+    background-color: $pink;
+    padding: 4px 5px;
+    border-radius: 5px;
+    margin-left: 5px;
+  }
+
+  .thread-footer {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin: 0 5px;
+      height: fit-content;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+$background: #141414;
+
+.popular-category {
+  .hashtag {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+
+    p {
+      display: inline-block;
+      background-color: $background;
+      padding: 13px 15px;
+      margin: 0;
+      border-radius: 10px;
+    }
+  }
+}
