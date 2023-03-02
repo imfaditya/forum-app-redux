@@ -1,18 +1,15 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { MdThumbUpOffAlt, MdThumbDownOffAlt } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { MdThumbDownOffAlt, MdThumbUpOffAlt } from 'react-icons/md';
 
-function ThreadItem() {
+function ThreadDetail() {
   return (
     <article className="thread-item">
-      <Link to="/detail">
-        <h3>
-          React Menyenangkan
-          {' '}
+      <h2>
+        React Menyenangkan
+        {' '}
 
-        </h3>
-      </Link>
+      </h2>
       <span><b>#React</b></span>
 
       <p>
@@ -26,6 +23,7 @@ function ThreadItem() {
           <MdThumbDownOffAlt />
         </section>
         <p>23 Minutes Ago</p>
+        <img className="avatar" src="https://ui-avatars.com/api/?name=Dimas%20Saputra&background=random" alt="avatar" />
         <p>
           by
           {' '}
@@ -36,4 +34,4 @@ function ThreadItem() {
   );
 }
 
-export default ThreadItem;
+export default ThreadDetail;

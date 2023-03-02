@@ -1,0 +1,48 @@
+$pink: #D3204B;
+
+.comment-item {
+  border: 2px solid $pink;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+
+  .comment-content {
+    margin: 5px 0
+  }
+
+  .comment-identity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    p {
+      display: inline;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    img {
+      width: 25px;
+      border-radius: 5px;
+    }
+  }
+
+  .comment-footer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    svg {
+      color: white;
+      font-size: 1.5em;
+    }
+
+    p {
+      padding-left: 5px;
+    }
+  }
+}
+
+.comment-title {
+  margin: 10px 0 10px 0;
+}

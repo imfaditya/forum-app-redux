@@ -2,14 +2,17 @@
 @use '__navBar.scss';
 @use '__popularCategory.scss';
 @use '__thread.scss';
+@use '__comment.scss';
 
 $background: #000000;
 
+* {
+  box-sizing: border-box;
+}
 
 body {
   background-color: $background;
   max-width: 1000px;
-  box-sizing: border-box;
   font-family: 'Inter', sans-serif;
   margin: auto;
   padding: 0 10px;
@@ -27,3 +30,6 @@ p, span {
   font-size: 15px;
 }
 
+a {
+  text-decoration: none;
+}

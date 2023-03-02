@@ -9,30 +9,50 @@ $pink: #D3204B;
 
 
   h3 {
-    margin: 10px 0;
+    margin: 10px 0 0 0;
+    width: fit-content;
+    display: inline-block;
+  }
+
+  a {
+    width: fit-content;
+    display: inline-block;
   }
 
   svg {
     color: white;
-    margin-right: 10px;
+    margin-right: 15px;
     font-size: 1.5em;
-    padding: 5px;
+    
   }
 
   span {
     background-color: $pink;
     padding: 4px 5px;
     border-radius: 5px;
-    margin-left: 5px;
+    margin-left: 10px;
   }
 
   .thread-footer {
     display: flex;
     align-items: center;
+    margin-bottom: 5px;
 
     p {
       margin: 0 5px;
       height: fit-content;
     }
+  }
+
+  .avatar {
+    width: 22px;
+    border-radius: 5px;
+    margin-left: 5px;
+  }
+  
+  h2 {
+    margin: 10px 0 0 0;
+    width: fit-content;
+    display: inline-block;
   }
 }
