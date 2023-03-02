@@ -1,3 +1,5 @@
+import { getAuthUserProfile, login, putAccessToken } from '../../utils/api';
+
 const ActionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',
   UNSET_AUTH_USER: 'UNSET_AUTH_USER',
@@ -17,8 +19,22 @@ const unsetAuthUserActionCreator = () => ({
   },
 });
 
+const asyncSetAuthUser = ({ email, password }) =>
+  async (dispatch) => {
+    try {
+      const token = await login({ email, password });
+      putAccessToken(token);
+      const authUser = await getAuthUserProfile();
+      dispatch(setAuthUserActionCreator(authUser));
+    } catch (error) {
+      alert('hhe');
+      alert(error);
+    }
+  };
+
 export {
   setAuthUserActionCreator,
   unsetAuthUserActionCreator,
+  asyncSetAuthUser,
   ActionType,
 };
