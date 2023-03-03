@@ -6,17 +6,17 @@ const detailThreadReducer = (detailThread = null, action = {}) => {
       return action.payload.detailThread;
     case ActionType.CLEAR_DETAIL_THREAD:
       return null;
-    case ActionType.UP_VOTE_THREAD:
+    case ActionType.UP_VOTE_DETAIL_THREAD:
       return {
         ...detailThread,
         upVotesBy: [...detailThread.upVotesBy, action.payload.userId],
       };
-    case ActionType.DOWN_VOTE_THREAD:
+    case ActionType.DOWN_VOTE_DETAIL_THREAD:
       return {
         ...detailThread,
         downVotesBy: [...detailThread.downVotesBy, action.payload.userId],
       };
-    case ActionType.UNVOTE_THREAD:
+    case ActionType.UNVOTE_DETAIL_THREAD:
       return {
         ...detailThread,
         upVotesBy: detailThread.upVotesBy.includes(action.payload.userId)

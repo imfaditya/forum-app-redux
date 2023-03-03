@@ -17,6 +17,9 @@
         "react"
     ],
     "rules": {
-        "react/jsx-filename-extension": 0
+        "react/jsx-filename-extension": 0,
+        "implicit-arrow-linebreak": "off",
+        "react/prop-types": "off",
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": false, "optionalDependencies": false, "peerDependencies": false}]
     }
 }
