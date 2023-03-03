@@ -1,35 +1,76 @@
-/* eslint-disable max-len */
+import parse from 'html-react-parser';
 import React from 'react';
-import { MdThumbUpOffAlt, MdThumbDownOffAlt } from 'react-icons/md';
+import {
+  MdThumbUpOffAlt, MdThumbDownOffAlt, MdThumbUp, MdThumbDown,
+} from 'react-icons/md';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { asyncDownVoteThread, asyncUnVoteThread, asyncUpVoteThread } from '../states/threads/action';
+import timeDiffFormatter from '../utils/timediffFormatter';
 
-function ThreadItem() {
+function ThreadItem({ thread, authUser }) {
+  const isUpVoted = thread.upVotesBy.includes(authUser.id);
+  const isDownVoted = thread.downVotesBy.includes(authUser.id);
+  const dispatch = useDispatch();
+
+  const onUpVoteThread = () => {
+    dispatch(asyncUpVoteThread(authUser.id, thread.id));
+  };
+
+  const onDownVoteThread = () => {
+    dispatch(asyncDownVoteThread(authUser.id, thread.id));
+  };
+
+  const onUnvoteThread = () => {
+    dispatch(asyncUnVoteThread(authUser.id, thread.id));
+  };
+
   return (
     <article className="thread-item">
-      <Link to="/detail">
-        <h3>
-          React Menyenangkan
-          {' '}
-
-        </h3>
+      <Link to={`threads/${thread.id}`}>
+        <h3>{thread.title}</h3>
       </Link>
-      <span><b>#React</b></span>
+      <span>
+        <b>
+          #
+          {thread.category}
+        </b>
+      </span>
 
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus fugit similique nostrum rem suscipit soluta consectetur, quisquam possimus, amet est molestiae perspiciatis veritatis ipsa non in natus asperiores delectus reprehenderit.
-        Laborum, minus id. Veritatis reiciendis cumque ut fugiat accusantium. Numquam est voluptates illum aliquam rem. Aliquid eveniet ad soluta recusandae fugiat, provident blanditiis. Hic perspiciatis eveniet deleniti dolorem numquam vitae.
-      </p>
+      <div className="line-clamp">
+        {parse(`${thread.body}`)}
+      </div>
 
       <section className="thread-footer">
         <section className="thread-action">
-          <MdThumbUpOffAlt />
-          <MdThumbDownOffAlt />
+          {isUpVoted ? (
+            <button type="button" onClick={() => onUnvoteThread()}>
+              <MdThumbUp />
+            </button>
+          )
+            : (
+              <button type="button" onClick={() => onUpVoteThread()}>
+                <MdThumbUpOffAlt />
+              </button>
+            )}
+          <p>{thread.upVotesBy.length}</p>
+
+          {isDownVoted ? (
+            <button type="button" onClick={() => onUnvoteThread()}>
+              <MdThumbDown />
+            </button>
+          ) : (
+            <button type="button" onClick={() => onDownVoteThread()}>
+              <MdThumbDownOffAlt />
+            </button>
+          )}
+          <p>{thread.downVotesBy.length}</p>
         </section>
-        <p>23 Minutes Ago</p>
+        <p>{timeDiffFormatter(thread.createdAt)}</p>
         <p>
           by
           {' '}
-          <b>Imam</b>
+          <b>{thread.user.name}</b>
         </p>
       </section>
     </article>

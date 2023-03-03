@@ -1,12 +1,16 @@
 import React from 'react';
 import ThreadItem from './ThreadItem';
 
-function ThreadsList() {
+function ThreadsList({ threads, users, authUser }) {
+  const threadsList = threads.map((thread) => ({
+    ...thread,
+    user: users.find((user) => user.id === thread.ownerId),
+  }));
+
   return (
-    <>
-      <ThreadItem />
-      <ThreadItem />
-    </>
+    threadsList.map((thread) => (
+      <ThreadItem authUser={authUser} thread={thread} key={thread.id} />
+    ))
   );
 }
 

@@ -1,19 +1,61 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { MdThumbDownOffAlt, MdThumbUpOffAlt } from 'react-icons/md';
+import {
+  MdThumbDown, MdThumbDownOffAlt, MdThumbUp, MdThumbUpOffAlt,
+} from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { asyncDownVoteComment, asyncUnVoteComment, asyncUpVoteComment } from '../states/detailThread/action';
+import timeDiffFormatter from '../utils/timediffFormatter';
 
-function CommentItem() {
+function CommentItem({ comment, authUser, threadId }) {
+  const dispatch = useDispatch();
+  const isUpVoted = comment.upVotesBy.includes(authUser.id);
+  const isDownVoted = comment.downVotesBy.includes(authUser.id);
+
+  const onUpVoteComment = () => {
+    dispatch(asyncUpVoteComment(authUser.id, threadId, comment.id));
+  };
+
+  const onDownVoteComment = () => {
+    dispatch(asyncDownVoteComment(authUser.id, threadId, comment.id));
+  };
+
+  const onUnvoteComment = () => {
+    dispatch(asyncUnVoteComment(authUser.id, threadId, comment.id));
+  };
+
   return (
     <section className="comment-item">
       <div className="comment-identity">
-        <img src="https://ui-avatars.com/api/?name=Dimas%20Saputra&background=random" alt="avatar" />
-        <p>Imam Faraz Aditya</p>
+        <img src={comment.owner.avatar} alt="avatar" />
+        <p>{comment.owner.name}</p>
       </div>
-      <p className="comment-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae temporibus voluptate aliquam illum enim animi? Minus quam placeat explicabo temporibus repudiandae harum quod necessitatibus aliquid. Aut necessitatibus nulla explicabo repellat.</p>
+      <p className="comment-content">{comment.content}</p>
       <div className="comment-footer">
-        <MdThumbUpOffAlt />
-        <MdThumbDownOffAlt />
-        <p>2 Minutes Ago</p>
+        <div className="comment-action">
+          {isUpVoted ? (
+            <button type="button" onClick={() => onUnvoteComment()}>
+              <MdThumbUp />
+            </button>
+          )
+            : (
+              <button type="button" onClick={() => onUpVoteComment()}>
+                <MdThumbUpOffAlt />
+              </button>
+            )}
+          <p>{comment.upVotesBy.length}</p>
+          {isDownVoted ? (
+            <button type="button" onClick={() => onUnvoteComment()}>
+              <MdThumbDown />
+            </button>
+          ) : (
+            <button type="button" onClick={() => onDownVoteComment()}>
+              <MdThumbDownOffAlt />
+            </button>
+          )}
+          <p>{comment.downVotesBy.length}</p>
+        </div>
+        <p>{timeDiffFormatter(comment.createdAt)}</p>
       </div>
     </section>
   );

@@ -1,33 +1,80 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { MdThumbDownOffAlt, MdThumbUpOffAlt } from 'react-icons/md';
+import parse from 'html-react-parser';
+import {
+  MdThumbDown, MdThumbDownOffAlt, MdThumbUp, MdThumbUpOffAlt,
+} from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import timeDiffFormatter from '../utils/timediffFormatter';
+import { asyncDownVoteDetailThread, asyncUnVoteDetailThread, asyncUpVoteDetailThread } from '../states/detailThread/action';
 
-function ThreadDetail() {
+function ThreadDetail({ detailThread, authUser }) {
+  const isUpVoted = detailThread.upVotesBy.includes(authUser.id);
+  const isDownVoted = detailThread.downVotesBy.includes(authUser.id);
+  const dispatch = useDispatch();
+
+  const onUpVoteDetailThread = () => {
+    dispatch(asyncUpVoteDetailThread(authUser.id, detailThread.id));
+  };
+
+  const onDownVoteDetailThread = () => {
+    dispatch(asyncDownVoteDetailThread(authUser.id, detailThread.id));
+  };
+
+  const onUnvoteDetailThread = () => {
+    dispatch(asyncUnVoteDetailThread(authUser.id, detailThread.id));
+  };
+
+  if (detailThread === null) {
+    return null;
+  }
+
   return (
     <article className="thread-item">
       <h2>
-        React Menyenangkan
-        {' '}
-
+        <b>{detailThread.title}</b>
       </h2>
-      <span><b>#React</b></span>
+      <span>
+        <b>
+          #
+          {detailThread.category}
+        </b>
+      </span>
 
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus fugit similique nostrum rem suscipit soluta consectetur, quisquam possimus, amet est molestiae perspiciatis veritatis ipsa non in natus asperiores delectus reprehenderit.
-        Laborum, minus id. Veritatis reiciendis cumque ut fugiat accusantium. Numquam est voluptates illum aliquam rem. Aliquid eveniet ad soluta recusandae fugiat, provident blanditiis. Hic perspiciatis eveniet deleniti dolorem numquam vitae.
-      </p>
+      <div className="detail-body">
+        {parse(`${detailThread.body}`)}
+      </div>
 
       <section className="thread-footer">
         <section className="thread-action">
-          <MdThumbUpOffAlt />
-          <MdThumbDownOffAlt />
+          {isUpVoted ? (
+            <button type="button" onClick={() => onUnvoteDetailThread()}>
+              <MdThumbUp />
+            </button>
+          )
+            : (
+              <button type="button" onClick={() => onUpVoteDetailThread()}>
+                <MdThumbUpOffAlt />
+              </button>
+            )}
+          <p>{detailThread.upVotesBy.length}</p>
+          {isDownVoted ? (
+            <button type="button" onClick={() => onUnvoteDetailThread()}>
+              <MdThumbDown />
+            </button>
+          ) : (
+            <button type="button" onClick={() => onDownVoteDetailThread()}>
+              <MdThumbDownOffAlt />
+            </button>
+          )}
+          <p>{detailThread.downVotesBy.length}</p>
         </section>
-        <p>23 Minutes Ago</p>
-        <img className="avatar" src="https://ui-avatars.com/api/?name=Dimas%20Saputra&background=random" alt="avatar" />
+        <p>{timeDiffFormatter(detailThread.createdAt)}</p>
+        <img className="avatar" src={detailThread.owner.avatar} alt="avatar" />
         <p>
           by
           {' '}
-          <b>Imam</b>
+          <b>{detailThread.owner.name}</b>
         </p>
       </section>
     </article>
