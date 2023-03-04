@@ -3,6 +3,7 @@ import React from 'react';
 import {
   MdThumbUpOffAlt, MdThumbDownOffAlt, MdThumbUp, MdThumbDown,
 } from 'react-icons/md';
+import { FaRegCommentAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { asyncDownVoteThread, asyncUnVoteThread, asyncUpVoteThread } from '../states/threads/action';
@@ -30,15 +31,15 @@ function ThreadItem({ thread, authUser }) {
 
   return (
     <article className="thread-item">
-      <Link to={`threads/${thread.id}`}>
-        <h3>{thread.title}</h3>
-      </Link>
       <span>
         <b>
           #
           {thread.category}
         </b>
       </span>
+      <Link to={`threads/${thread.id}`}>
+        <h3>{thread.title}</h3>
+      </Link>
 
       <div className="line-clamp">
         {parse(`${thread.body}`)}
@@ -68,10 +69,14 @@ function ThreadItem({ thread, authUser }) {
             </button>
           )}
           <p>{thread.downVotesBy.length}</p>
+          <Link to={`threads/${thread.id}`}>
+            <FaRegCommentAlt />
+          </Link>
+          <p>{thread.totalComments}</p>
         </section>
         <p>{timeDiffFormatter(thread.createdAt)}</p>
         <p>
-          by
+          Created by
           {' '}
           <b>{thread.user.name}</b>
         </p>

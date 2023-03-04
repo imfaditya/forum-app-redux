@@ -6,6 +6,8 @@ $pink: #D3204B;
   padding: 10px 20px;
   border-radius: 10px;
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
 
 
   h3 {
@@ -29,25 +31,33 @@ $pink: #D3204B;
     background-color: $pink;
     padding: 4px 5px;
     border-radius: 5px;
-    margin-left: 10px;
+    width: fit-content;
+    margin-top: 10px;
   }
 
   .thread-footer {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 5px;
 
     p {
-      margin: 0 5px;
       height: fit-content;
+      margin: 5px 10px 0 0;
+      padding-bottom: 5px;
+    }
+
+    .profile-info-wrapper {
+      display: flex;
+    }
+
+    .avatar {
+      width: 25px;
+      border-radius: 5px;
+      margin-right: 5px;
     }
   }
 
-  .avatar {
-    width: 22px;
-    border-radius: 5px;
-    margin-left: 5px;
-  }
   
   h2 {
     margin: 10px 0 0 0;
@@ -78,6 +88,13 @@ $pink: #D3204B;
     button {
       background-color: unset;
       padding: 2px;
+    }
+
+    a {
+      display: flex;
+      svg {
+        width: 18px;
+      }
     }
   }
 }

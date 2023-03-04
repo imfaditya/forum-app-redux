@@ -34,15 +34,15 @@ function ThreadDetail({ detailThread, authUser }) {
 
   return (
     <article className="thread-item">
-      <h2>
-        <b>{detailThread.title}</b>
-      </h2>
       <span>
         <b>
           #
           {detailThread.category}
         </b>
       </span>
+      <h2>
+        <b>{detailThread.title}</b>
+      </h2>
 
       <div className="detail-body">
         {parse(`${detailThread.body}`)}
@@ -73,12 +73,14 @@ function ThreadDetail({ detailThread, authUser }) {
           <p>{detailThread.downVotesBy.length}</p>
         </section>
         <p>{timeDiffFormatter(detailThread.createdAt)}</p>
-        <img className="avatar" src={detailThread.owner.avatar} alt="avatar" />
-        <p>
-          by
-          {' '}
-          <b>{detailThread.owner.name}</b>
-        </p>
+        <section className="profile-info-wrapper">
+          <img className="avatar" src={detailThread.owner.avatar} alt="avatar" />
+          <p>
+            Created by
+            {' '}
+            <b>{detailThread.owner.name}</b>
+          </p>
+        </section>
       </section>
     </article>
   );
