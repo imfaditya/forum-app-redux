@@ -1,0 +1,26 @@
+$background: #141414;
+
+.leaderboard-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  background-color: $background;
+  padding: 10px;
+  border-radius: 10px;
+  
+  .identity {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 10px;
+      border-radius: 10px;
+    }
+  }
+
+  p {
+    font-size: 20px;
+    color: white;
+  }
+}

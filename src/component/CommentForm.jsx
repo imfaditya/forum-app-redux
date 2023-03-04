@@ -17,7 +17,7 @@ function CommentForm({ threadId }) {
 
   return (
     <form className="comment-form" onSubmit={onCommentSubmit}>
-      <div className="div-editable" contentEditable="true" data-placeholder="Comment..." onInput={onCommentChange} />
+      <div className="div-editable" contentEditable="true" onInput={onCommentChange} />
       <button type="submit">Post Comment</button>
     </form>
   );

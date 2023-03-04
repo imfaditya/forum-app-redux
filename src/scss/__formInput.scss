@@ -6,7 +6,7 @@ $pink: #D3204B;
 
 input, .div-editable {
   background-color: $input-background;
-  color: $input-text;
+  color: white;
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -54,7 +54,6 @@ button:hover {
   background-color: $pink;
   color: white;
   padding: 10px 15px;
-  margin-top: 20px;
   border-radius: 5px;
   display: inline-block;
 }

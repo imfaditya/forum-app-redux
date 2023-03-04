@@ -6,6 +6,7 @@ import Navbar from './component/Navbar';
 import AddPage from './pages/AddPage';
 import DetailPage from './pages/DetailPage';
 import HomePage from './pages/HomePage';
+import LeaderboardsPage from './pages/LeaderboardsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import './scss/main.scss';
@@ -30,7 +31,7 @@ function App() {
     return (
       <>
         <header>
-          <Navbar />
+          <Navbar authUser={authUser} />
         </header>
         <main>
           <Routes>
@@ -45,13 +46,14 @@ function App() {
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar authUser={authUser} />
       </header>
       <main>
         <Routes>
           <Route path="/*" element={<HomePage />} />
           <Route path="/threads/:id" element={<DetailPage />} />
           <Route path="/add" element={<AddPage />} />
+          <Route path="/leaderboards" element={<LeaderboardsPage />} />
         </Routes>
       </main>
 

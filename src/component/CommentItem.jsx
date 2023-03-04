@@ -4,17 +4,16 @@ import {
   MdThumbDown, MdThumbDownOffAlt, MdThumbUp, MdThumbUpOffAlt,
 } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
+import parse from 'html-react-parser';
 import { asyncDownVoteComment, asyncUnVoteComment, asyncUpVoteComment } from '../states/detailThread/action';
 import timeDiffFormatter from '../utils/timediffFormatter';
 
 function CommentItem({ comment, authUser, threadId }) {
   const dispatch = useDispatch();
-  console.log(comment);
   const isUpVoted = comment.upVotesBy.includes(authUser.id);
   const isDownVoted = comment.downVotesBy.includes(authUser.id);
 
   const onUpVoteComment = (event) => {
-    console.log(comment.id);
     event.stopPropagation();
     dispatch(asyncUpVoteComment(authUser.id, threadId, comment.id));
   };
@@ -35,7 +34,7 @@ function CommentItem({ comment, authUser, threadId }) {
         <img src={comment.owner.avatar} alt="avatar" />
         <p>{comment.owner.name}</p>
       </div>
-      <p className="comment-content">{comment.content}</p>
+      <div className="comment-content">{parse(`${comment.content}`)}</div>
       <div className="comment-footer">
         <div className="comment-action">
           {isUpVoted ? (

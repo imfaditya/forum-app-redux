@@ -226,6 +226,19 @@ const register = async (account) => {
   return { status, message };
 };
 
+const getLeaderboards = async () => {
+  const response = await fetch(`${BASE_URL}/leaderboards`, {
+    method: 'GET',
+  });
+
+  const responseJSON = await response.json();
+  if (responseJSON.status !== 'success') {
+    throw new Error(responseJSON.message);
+  }
+
+  return responseJSON.data.leaderboards;
+};
+
 export {
   login,
   putAccessToken,
@@ -243,4 +256,5 @@ export {
   addComment,
   addThread,
   register,
+  getLeaderboards,
 };

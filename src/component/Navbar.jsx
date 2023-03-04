@@ -1,15 +1,18 @@
 import React from 'react';
 import {
-  IoChatboxEllipsesOutline, IoPodiumOutline, IoLogInOutline, IoLogOutOutline,
+  IoChatboxEllipsesOutline, IoPodiumOutline, IoLogOutOutline,
 } from 'react-icons/io5';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import { unsetAuthUserActionCreator } from '../states/authUser/action';
 
-function Navbar() {
-  const authUser = useSelector((states) => states.authUser);
+function Navbar({ authUser }) {
   const dispatch = useDispatch();
+
+  if (!authUser) {
+    return null;
+  }
 
   return (
     <nav>
@@ -17,14 +20,14 @@ function Navbar() {
         <img src={logo} alt="disquite" />
       </Link>
       <section>
-        <button type="button">
+        <Link to="/" title="Home">
           <IoChatboxEllipsesOutline />
-        </button>
-        <button type="button">
+        </Link>
+        <Link to="/leaderboards" type="button" title="Leaderboards">
           <IoPodiumOutline />
-        </button>
-        <button type="button" onClick={() => dispatch(unsetAuthUserActionCreator())}>
-          {authUser ? <IoLogOutOutline /> : <IoLogInOutline />}
+        </Link>
+        <button title="Log Out" type="button" onClick={() => dispatch(unsetAuthUserActionCreator())}>
+          <IoLogOutOutline />
         </button>
       </section>
     </nav>
