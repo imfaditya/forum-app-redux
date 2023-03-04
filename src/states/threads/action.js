@@ -1,6 +1,7 @@
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import {
   addThread,
-  downVoteThread, getThreads, unVoteThread, upVoteThread,
+  downVoteThread, unVoteThread, upVoteThread,
 } from '../../utils/api';
 
 const ActionType = {
@@ -49,18 +50,9 @@ const unVoteThreadActionCreator = (userId, threadId) => ({
   },
 });
 
-const asyncReceiveThreads = () =>
-  async (dispatch) => {
-    try {
-      const threads = await getThreads();
-      dispatch(receiveThreadsActionCreator(threads));
-    } catch (error) {
-      alert(error);
-    }
-  };
-
 const asyncUpVoteThread = (userId, threadId) =>
   async (dispatch) => {
+    dispatch(showLoading());
     try {
       dispatch(unVoteThreadActionCreator(userId, threadId));
       dispatch(upVoteThreadActionCreator(userId, threadId));
@@ -68,10 +60,12 @@ const asyncUpVoteThread = (userId, threadId) =>
     } catch (error) {
       console.log(error);
     }
+    dispatch(hideLoading());
   };
 
 const asyncDownVoteThread = (userId, threadId) =>
   async (dispatch) => {
+    dispatch(showLoading());
     try {
       dispatch(unVoteThreadActionCreator(userId, threadId));
       dispatch(downVoteThreadActionCreator(userId, threadId));
@@ -79,33 +73,37 @@ const asyncDownVoteThread = (userId, threadId) =>
     } catch (error) {
       console.log(error);
     }
+    dispatch(hideLoading());
   };
 
 const asyncUnVoteThread = (userId, threadId) =>
   async (dispatch) => {
+    dispatch(showLoading());
     try {
       dispatch(unVoteThreadActionCreator(userId, threadId));
       await unVoteThread(threadId);
     } catch (error) {
       console.log(error);
     }
+    dispatch(hideLoading());
   };
 
 const asyncAddThread = (thread) =>
   async (dispatch) => {
+    dispatch(showLoading());
     try {
       const threadData = await addThread(thread);
       dispatch(addThreadActionCreator(threadData));
     } catch (error) {
       console.log(error);
     }
+    dispatch(hideLoading());
   };
 
 export {
   receiveThreadsActionCreator,
   addThreadActionCreator,
   ActionType,
-  asyncReceiveThreads,
   unVoteThreadActionCreator,
   upVoteThreadActionCreator,
   downVoteThreadActionCreator,

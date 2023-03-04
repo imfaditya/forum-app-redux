@@ -19,8 +19,6 @@ function HomePage() {
     return null;
   }
 
-  console.log(categories);
-
   return (
     <>
       <h2><b>Popular Category</b></h2>

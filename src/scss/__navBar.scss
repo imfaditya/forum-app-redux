@@ -2,6 +2,7 @@ nav {
   display: flex;
   justify-content: space-between;
   padding: 15px 0;
+  align-items: center;
 
   img {
     width: 120px;
@@ -16,7 +17,7 @@ nav {
     button, a{
       display: inline-block;
       width: fit-content;
-      margin-left: 20px;
+      margin-left: 5px;
       background-color: unset;
     }
 

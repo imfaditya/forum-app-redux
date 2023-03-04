@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import './scss/main.scss';
 import { asyncSetPreload } from './states/isPreload/action';
+import Loading from './component/Loading';
 
 function App() {
   const {
@@ -30,6 +31,7 @@ function App() {
   if (authUser === null) {
     return (
       <>
+        <Loading />
         <header>
           <Navbar authUser={authUser} />
         </header>
@@ -45,6 +47,7 @@ function App() {
 
   return (
     <>
+      <Loading />
       <header>
         <Navbar authUser={authUser} />
       </header>

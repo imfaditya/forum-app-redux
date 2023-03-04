@@ -13,10 +13,19 @@ $background: #000000;
 
 body {
   background-color: $background;
-  max-width: 1000px;
   font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+main, nav {
+  max-width: 1000px;
   margin: auto;
-  padding: 0 10px;
+  padding: 0 20px;
+}
+
+nav {
+  padding-top: 20px;
 }
 
 h2, h3 {
