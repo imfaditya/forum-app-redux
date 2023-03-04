@@ -9,18 +9,23 @@ import timeDiffFormatter from '../utils/timediffFormatter';
 
 function CommentItem({ comment, authUser, threadId }) {
   const dispatch = useDispatch();
+  console.log(comment);
   const isUpVoted = comment.upVotesBy.includes(authUser.id);
   const isDownVoted = comment.downVotesBy.includes(authUser.id);
 
-  const onUpVoteComment = () => {
+  const onUpVoteComment = (event) => {
+    console.log(comment.id);
+    event.stopPropagation();
     dispatch(asyncUpVoteComment(authUser.id, threadId, comment.id));
   };
 
-  const onDownVoteComment = () => {
+  const onDownVoteComment = (event) => {
+    event.stopPropagation();
     dispatch(asyncDownVoteComment(authUser.id, threadId, comment.id));
   };
 
-  const onUnvoteComment = () => {
+  const onUnvoteComment = (event) => {
+    event.stopPropagation();
     dispatch(asyncUnVoteComment(authUser.id, threadId, comment.id));
   };
 
@@ -34,22 +39,22 @@ function CommentItem({ comment, authUser, threadId }) {
       <div className="comment-footer">
         <div className="comment-action">
           {isUpVoted ? (
-            <button type="button" onClick={() => onUnvoteComment()}>
+            <button type="button" onClick={onUnvoteComment}>
               <MdThumbUp />
             </button>
           )
             : (
-              <button type="button" onClick={() => onUpVoteComment()}>
+              <button type="button" onClick={onUpVoteComment}>
                 <MdThumbUpOffAlt />
               </button>
             )}
           <p>{comment.upVotesBy.length}</p>
           {isDownVoted ? (
-            <button type="button" onClick={() => onUnvoteComment()}>
+            <button type="button" onClick={onUnvoteComment}>
               <MdThumbDown />
             </button>
           ) : (
-            <button type="button" onClick={() => onDownVoteComment()}>
+            <button type="button" onClick={onDownVoteComment}>
               <MdThumbDownOffAlt />
             </button>
           )}
