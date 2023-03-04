@@ -1,4 +1,5 @@
 import {
+  addThread,
   downVoteThread, getThreads, unVoteThread, upVoteThread,
 } from '../../utils/api';
 
@@ -90,6 +91,16 @@ const asyncUnVoteThread = (userId, threadId) =>
     }
   };
 
+const asyncAddThread = (thread) =>
+  async (dispatch) => {
+    try {
+      const threadData = await addThread(thread);
+      dispatch(addThreadActionCreator(threadData));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 export {
   receiveThreadsActionCreator,
   addThreadActionCreator,
@@ -101,4 +112,5 @@ export {
   asyncDownVoteThread,
   asyncUpVoteThread,
   asyncUnVoteThread,
+  asyncAddThread,
 };

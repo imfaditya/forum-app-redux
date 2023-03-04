@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './component/Navbar';
+import AddPage from './pages/AddPage';
 import DetailPage from './pages/DetailPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -50,6 +51,7 @@ function App() {
         <Routes>
           <Route path="/*" element={<HomePage />} />
           <Route path="/threads/:id" element={<DetailPage />} />
+          <Route path="/add" element={<AddPage />} />
         </Routes>
       </main>
 

@@ -1,6 +1,7 @@
 @use './_formInput';
 
 $background: #141414;
+$pink: #D3204B;
 
 .auth-card {
   background-color: $background;
@@ -21,5 +22,11 @@ $background: #141414;
     gap: 15px;
   }
 
-
+  .register-button, .login-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px;
+    color: rgb(150, 150, 150);
+    font-size: 15px;
+  }
 }

@@ -1,4 +1,5 @@
 import {
+  addComment,
   downVoteComment,
   downVoteThread, getDetailThread, unVoteComment, unVoteThread, upVoteComment, upVoteThread,
 } from '../../utils/api';
@@ -156,6 +157,16 @@ const asyncUnVoteComment = (userId, threadId, commentId) =>
     }
   };
 
+const asyncaddComment = (threadId, content) =>
+  async (dispatch) => {
+    try {
+      const commentData = await addComment(threadId, content);
+      dispatch(addCommentActionCreator(commentData));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 export {
   receiveDetailThreadActionCreator,
   addCommentActionCreator,
@@ -174,4 +185,5 @@ export {
   asyncUpVoteComment,
   asyncDownVoteComment,
   asyncUnVoteComment,
+  asyncaddComment,
 };
