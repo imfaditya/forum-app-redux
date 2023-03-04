@@ -30,41 +30,56 @@ const detailThreadReducer = (detailThread = null, action = {}) => {
       return {
         ...detailThread,
         comments: detailThread.comments.map(
-          (comment) => ({
-            ...comment,
-            upVotesBy: comment.upVotesBy.concat(action.payload.userId),
-          }),
+          (comment) => {
+            if (comment.id === action.payload.commentId) {
+              return {
+                ...comment,
+                upVotesBy: comment.upVotesBy.concat(action.payload.userId),
+              };
+            }
+            return comment;
+          },
         ),
       };
     case ActionType.DOWN_VOTE_COMMENT:
       return {
         ...detailThread,
         comments: detailThread.comments.map(
-          (comment) => ({
-            ...comment,
-            downVotesBy: comment.downVotesBy.concat(action.payload.userId),
-          }),
+          (comment) => {
+            if (comment.id === action.payload.commentId) {
+              return {
+                ...comment,
+                downVotesBy: comment.downVotesBy.concat(action.payload.userId),
+              };
+            }
+            return comment;
+          },
         ),
       };
     case ActionType.UNVOTE_COMMENT:
       return {
         ...detailThread,
         comments: detailThread.comments.map(
-          (comment) => ({
-            ...comment,
-            upVotesBy: comment.upVotesBy.includes(action.payload.userId)
-              ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
-              : comment.upVotesBy,
-            downVotesBy: comment.downVotesBy.includes(action.payload.userId)
-              ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
-              : comment.downVotesBy,
-          }),
+          (comment) => {
+            if (comment.id === action.payload.commentId) {
+              return {
+                ...comment,
+                upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+                  ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
+                  : comment.upVotesBy,
+                downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+                  ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
+                  : comment.downVotesBy,
+              };
+            }
+            return comment;
+          },
         ),
       };
     case ActionType.ADD_COMMENT:
       return {
         ...detailThread,
-        comments: [...detailThread.comments, action.payload.comment],
+        comments: [action.payload.comment, ...detailThread.comments],
       };
     default:
       return detailThread;

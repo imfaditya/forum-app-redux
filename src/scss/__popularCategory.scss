@@ -1,4 +1,5 @@
 $background: #141414;
+$pink: #D3204B;
 
 .popular-category {
   .hashtag {
@@ -13,6 +14,17 @@ $background: #141414;
       padding: 13px 15px;
       margin: 0;
       border-radius: 10px;
+    }
+
+    p.selected-category {
+      background-color: $pink;
+    }
+
+    button {
+      width: fit-content;
+      display: inline-block;
+      padding: 0;
+      background-color: unset;
     }
   }
 }

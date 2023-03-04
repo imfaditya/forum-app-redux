@@ -166,6 +166,79 @@ const unVoteComment = async (threadId, commentId) => {
   }
 };
 
+const addComment = async (threadId, content) => {
+  const response = await fetch(`${BASE_URL}/threads/${threadId}/comments`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      content,
+    }),
+  });
+
+  const responseJSON = await response.json();
+  if (responseJSON.status !== 'success') {
+    throw new Error(responseJSON.message);
+  }
+
+  return responseJSON.data.comment;
+};
+
+const addThread = async (thread) => {
+  const response = await fetch(`${BASE_URL}/threads`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: thread.title,
+      body: thread.content,
+      category: thread.category,
+    }),
+  });
+
+  const responseJSON = await response.json();
+  if (responseJSON.status !== 'success') {
+    throw new Error(responseJSON.message);
+  }
+
+  return responseJSON.data.thread;
+};
+
+const register = async (account) => {
+  const response = await fetch(`${BASE_URL}/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: account.name,
+      email: account.email,
+      password: account.password,
+    }),
+  });
+
+  const responseJSON = await response.json();
+  const { status, message } = responseJSON;
+  return { status, message };
+};
+
+const getLeaderboards = async () => {
+  const response = await fetch(`${BASE_URL}/leaderboards`, {
+    method: 'GET',
+  });
+
+  const responseJSON = await response.json();
+  if (responseJSON.status !== 'success') {
+    throw new Error(responseJSON.message);
+  }
+
+  return responseJSON.data.leaderboards;
+};
+
 export {
   login,
   putAccessToken,
@@ -180,4 +253,8 @@ export {
   upVoteComment,
   downVoteComment,
   unVoteComment,
+  addComment,
+  addThread,
+  register,
+  getLeaderboards,
 };

@@ -22,8 +22,13 @@ function DetailPage() {
   return (
     <>
       <ThreadDetail detailThread={detailThread} authUser={authUser} />
-      <h3 className="comment-title">Comments</h3>
-      <CommentForm />
+      <h3 className="comment-title">
+        Comments
+        (
+        {detailThread.comments.length}
+        )
+      </h3>
+      <CommentForm threadId={detailThread.id} />
       <CommentsList
         comments={detailThread.comments}
         threadId={detailThread.id}

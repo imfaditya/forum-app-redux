@@ -2,6 +2,7 @@ nav {
   display: flex;
   justify-content: space-between;
   padding: 15px 0;
+  align-items: center;
 
   img {
     width: 120px;
@@ -12,10 +13,16 @@ nav {
     font-size: 1.6em;
   }
 
-  button {
-    display: inline-block;
-    width: fit-content;
-    margin-left: 20px;
-    background-color: unset;
+  section {
+    button, a{
+      display: inline-block;
+      width: fit-content;
+      margin-left: 5px;
+      background-color: unset;
+    }
+
+    a {
+      padding: 10px;
+    }
   }
 }

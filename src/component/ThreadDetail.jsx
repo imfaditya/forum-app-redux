@@ -13,15 +13,18 @@ function ThreadDetail({ detailThread, authUser }) {
   const isDownVoted = detailThread.downVotesBy.includes(authUser.id);
   const dispatch = useDispatch();
 
-  const onUpVoteDetailThread = () => {
+  const onUpVoteDetailThread = (event) => {
+    event.stopPropagation();
     dispatch(asyncUpVoteDetailThread(authUser.id, detailThread.id));
   };
 
-  const onDownVoteDetailThread = () => {
+  const onDownVoteDetailThread = (event) => {
+    event.stopPropagation();
     dispatch(asyncDownVoteDetailThread(authUser.id, detailThread.id));
   };
 
-  const onUnvoteDetailThread = () => {
+  const onUnvoteDetailThread = (event) => {
+    event.stopPropagation();
     dispatch(asyncUnVoteDetailThread(authUser.id, detailThread.id));
   };
 
@@ -31,15 +34,15 @@ function ThreadDetail({ detailThread, authUser }) {
 
   return (
     <article className="thread-item">
-      <h2>
-        <b>{detailThread.title}</b>
-      </h2>
       <span>
         <b>
           #
           {detailThread.category}
         </b>
       </span>
+      <h2>
+        <b>{detailThread.title}</b>
+      </h2>
 
       <div className="detail-body">
         {parse(`${detailThread.body}`)}
@@ -48,34 +51,36 @@ function ThreadDetail({ detailThread, authUser }) {
       <section className="thread-footer">
         <section className="thread-action">
           {isUpVoted ? (
-            <button type="button" onClick={() => onUnvoteDetailThread()}>
+            <button type="button" onClick={onUnvoteDetailThread}>
               <MdThumbUp />
             </button>
           )
             : (
-              <button type="button" onClick={() => onUpVoteDetailThread()}>
+              <button type="button" onClick={onUpVoteDetailThread}>
                 <MdThumbUpOffAlt />
               </button>
             )}
           <p>{detailThread.upVotesBy.length}</p>
           {isDownVoted ? (
-            <button type="button" onClick={() => onUnvoteDetailThread()}>
+            <button type="button" onClick={onUnvoteDetailThread}>
               <MdThumbDown />
             </button>
           ) : (
-            <button type="button" onClick={() => onDownVoteDetailThread()}>
+            <button type="button" onClick={onDownVoteDetailThread}>
               <MdThumbDownOffAlt />
             </button>
           )}
           <p>{detailThread.downVotesBy.length}</p>
         </section>
         <p>{timeDiffFormatter(detailThread.createdAt)}</p>
-        <img className="avatar" src={detailThread.owner.avatar} alt="avatar" />
-        <p>
-          by
-          {' '}
-          <b>{detailThread.owner.name}</b>
-        </p>
+        <section className="profile-info-wrapper">
+          <img className="avatar" src={detailThread.owner.avatar} alt="avatar" />
+          <p>
+            Created by
+            {' '}
+            <b>{detailThread.owner.name}</b>
+          </p>
+        </section>
       </section>
     </article>
   );
