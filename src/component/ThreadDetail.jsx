@@ -13,15 +13,18 @@ function ThreadDetail({ detailThread, authUser }) {
   const isDownVoted = detailThread.downVotesBy.includes(authUser.id);
   const dispatch = useDispatch();
 
-  const onUpVoteDetailThread = () => {
+  const onUpVoteDetailThread = (event) => {
+    event.stopPropagation();
     dispatch(asyncUpVoteDetailThread(authUser.id, detailThread.id));
   };
 
-  const onDownVoteDetailThread = () => {
+  const onDownVoteDetailThread = (event) => {
+    event.stopPropagation();
     dispatch(asyncDownVoteDetailThread(authUser.id, detailThread.id));
   };
 
-  const onUnvoteDetailThread = () => {
+  const onUnvoteDetailThread = (event) => {
+    event.stopPropagation();
     dispatch(asyncUnVoteDetailThread(authUser.id, detailThread.id));
   };
 
@@ -48,22 +51,22 @@ function ThreadDetail({ detailThread, authUser }) {
       <section className="thread-footer">
         <section className="thread-action">
           {isUpVoted ? (
-            <button type="button" onClick={() => onUnvoteDetailThread()}>
+            <button type="button" onClick={onUnvoteDetailThread}>
               <MdThumbUp />
             </button>
           )
             : (
-              <button type="button" onClick={() => onUpVoteDetailThread()}>
+              <button type="button" onClick={onUpVoteDetailThread}>
                 <MdThumbUpOffAlt />
               </button>
             )}
           <p>{detailThread.upVotesBy.length}</p>
           {isDownVoted ? (
-            <button type="button" onClick={() => onUnvoteDetailThread()}>
+            <button type="button" onClick={onUnvoteDetailThread}>
               <MdThumbDown />
             </button>
           ) : (
-            <button type="button" onClick={() => onDownVoteDetailThread()}>
+            <button type="button" onClick={onDownVoteDetailThread}>
               <MdThumbDownOffAlt />
             </button>
           )}
