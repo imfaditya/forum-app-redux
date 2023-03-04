@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { getThreads, getUsers } from '../../utils/api';
 import { receiveCategoriesActionCreator } from '../categories/action';
@@ -16,7 +17,7 @@ const asyncReceiveThreadsUsersCategories = () =>
       dispatch(receiveUsersActionCreator(users));
       dispatch(receiveCategoriesActionCreator(listCategories));
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
     dispatch(hideLoading());
   };

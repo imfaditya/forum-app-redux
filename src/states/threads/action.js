@@ -58,7 +58,7 @@ const asyncUpVoteThread = (userId, threadId) =>
       dispatch(upVoteThreadActionCreator(userId, threadId));
       await upVoteThread(threadId);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
     dispatch(hideLoading());
   };
@@ -71,7 +71,7 @@ const asyncDownVoteThread = (userId, threadId) =>
       dispatch(downVoteThreadActionCreator(userId, threadId));
       await downVoteThread(threadId);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
     dispatch(hideLoading());
   };
@@ -83,7 +83,7 @@ const asyncUnVoteThread = (userId, threadId) =>
       dispatch(unVoteThreadActionCreator(userId, threadId));
       await unVoteThread(threadId);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
     dispatch(hideLoading());
   };
@@ -95,7 +95,7 @@ const asyncAddThread = (thread) =>
       const threadData = await addThread(thread);
       dispatch(addThreadActionCreator(threadData));
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
     dispatch(hideLoading());
   };
