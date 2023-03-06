@@ -9,6 +9,7 @@ const asyncReceiveThreadsUsersCategories = () =>
   async (dispatch) => {
     dispatch(showLoading());
     try {
+      console.log('FETCH SERVER');
       const threads = await getThreads();
       const users = await getUsers();
       const listCategories = [...new Set(threads.map((thread) => thread.category))];
