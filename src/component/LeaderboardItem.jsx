@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function LeaderboardItem({ leaderboard }) {
   return (
@@ -11,5 +12,9 @@ function LeaderboardItem({ leaderboard }) {
     </div>
   );
 }
+
+LeaderboardItem.propTypes = {
+  leaderboard: PropTypes.object.isRequired,
+};
 
 export default LeaderboardItem;

@@ -13,19 +13,18 @@ const setPreloadActionCreator = (isPreload) => ({
   },
 });
 
-const asyncSetPreload = () =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      const authUser = await getAuthUserProfile();
-      dispatch(setAuthUserActionCreator(authUser));
-    } catch (error) {
-      dispatch(setAuthUserActionCreator(null));
-    } finally {
-      dispatch(setPreloadActionCreator(false));
-    }
-    dispatch(hideLoading());
-  };
+const asyncSetPreload = () => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    const authUser = await getAuthUserProfile();
+    dispatch(setAuthUserActionCreator(authUser));
+  } catch (error) {
+    dispatch(setAuthUserActionCreator(null));
+  } finally {
+    dispatch(setPreloadActionCreator(false));
+  }
+  dispatch(hideLoading());
+};
 
 export {
   ActionType,

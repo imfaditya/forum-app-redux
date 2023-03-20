@@ -83,106 +83,98 @@ const unVoteDetailThreadActionCreator = (userId, threadId) => ({
   },
 });
 
-const asyncReceiveDetailThread = (threadId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(clearDetailThreadActionCreator());
-      const detailThread = await getDetailThread(threadId);
-      dispatch(receiveDetailThreadActionCreator(detailThread));
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncReceiveDetailThread = (threadId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(clearDetailThreadActionCreator());
+    const detailThread = await getDetailThread(threadId);
+    dispatch(receiveDetailThreadActionCreator(detailThread));
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncUpVoteDetailThread = (userId, threadId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(unVoteDetailThreadActionCreator(userId));
-      dispatch(upVoteDetailThreadActionCreator(userId));
-      await upVoteThread(threadId);
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncUpVoteDetailThread = (userId, threadId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(unVoteDetailThreadActionCreator(userId));
+    dispatch(upVoteDetailThreadActionCreator(userId));
+    await upVoteThread(threadId);
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncDownVoteDetailThread = (userId, threadId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(unVoteDetailThreadActionCreator(userId));
-      dispatch(downVoteDetailThreadActionCreator(userId));
-      await downVoteThread(threadId);
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncDownVoteDetailThread = (userId, threadId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(unVoteDetailThreadActionCreator(userId));
+    dispatch(downVoteDetailThreadActionCreator(userId));
+    await downVoteThread(threadId);
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncUnVoteDetailThread = (userId, threadId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(unVoteDetailThreadActionCreator(userId));
-      await unVoteThread(threadId);
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncUnVoteDetailThread = (userId, threadId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(unVoteDetailThreadActionCreator(userId));
+    await unVoteThread(threadId);
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncUpVoteComment = (userId, threadId, commentId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(unVoteCommentActionCreator(userId, commentId));
-      dispatch(upVoteCommentActionCreator(userId, commentId));
-      await upVoteComment(threadId, commentId);
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncUpVoteComment = (userId, threadId, commentId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(unVoteCommentActionCreator(userId, commentId));
+    dispatch(upVoteCommentActionCreator(userId, commentId));
+    await upVoteComment(threadId, commentId);
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncDownVoteComment = (userId, threadId, commentId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(unVoteCommentActionCreator(userId, commentId));
-      dispatch(downVoteCommentActionCreator(userId, commentId));
-      await downVoteComment(threadId, commentId);
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncDownVoteComment = (userId, threadId, commentId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(unVoteCommentActionCreator(userId, commentId));
+    dispatch(downVoteCommentActionCreator(userId, commentId));
+    await downVoteComment(threadId, commentId);
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncUnVoteComment = (userId, threadId, commentId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(unVoteCommentActionCreator(userId, commentId));
-      await unVoteComment(threadId, commentId);
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncUnVoteComment = (userId, threadId, commentId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(unVoteCommentActionCreator(userId, commentId));
+    await unVoteComment(threadId, commentId);
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncaddComment = (threadId, content) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      const commentData = await addComment(threadId, content);
-      dispatch(addCommentActionCreator(commentData));
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncaddComment = (threadId, content) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    const commentData = await addComment(threadId, content);
+    dispatch(addCommentActionCreator(commentData));
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
 export {
   receiveDetailThreadActionCreator,

@@ -1,4 +1,6 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable max-len */
+import PropTypes from 'prop-types';
 import React from 'react';
 import parse from 'html-react-parser';
 import {
@@ -85,5 +87,10 @@ function ThreadDetail({ detailThread, authUser }) {
     </article>
   );
 }
+
+ThreadDetail.propTypes = {
+  detailThread: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
+};
 
 export default ThreadDetail;

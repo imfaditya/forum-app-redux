@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { asyncaddComment } from '../states/detailThread/action';
 
 function CommentForm({ threadId }) {
@@ -22,5 +23,9 @@ function CommentForm({ threadId }) {
     </form>
   );
 }
+
+CommentForm.propTypes = {
+  threadId: PropTypes.string.isRequired,
+};
 
 export default CommentForm;

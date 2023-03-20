@@ -20,19 +20,18 @@ const unsetAuthUserActionCreator = () => ({
   },
 });
 
-const asyncSetAuthUser = ({ email, password }) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      const token = await login({ email, password });
-      putAccessToken(token);
-      const authUser = await getAuthUserProfile();
-      dispatch(setAuthUserActionCreator(authUser));
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncSetAuthUser = ({ email, password }) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    const token = await login({ email, password });
+    putAccessToken(token);
+    const authUser = await getAuthUserProfile();
+    dispatch(setAuthUserActionCreator(authUser));
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
 export {
   setAuthUserActionCreator,

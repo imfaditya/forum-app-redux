@@ -15,7 +15,7 @@ function HomePage() {
     dispatch(asyncReceiveThreadsUsersCategories());
   }, [dispatch]);
 
-  if (threads === null && users === null) {
+  if (threads === null || users === null) {
     return null;
   }
 

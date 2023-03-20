@@ -50,55 +50,51 @@ const unVoteThreadActionCreator = (userId, threadId) => ({
   },
 });
 
-const asyncUpVoteThread = (userId, threadId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(unVoteThreadActionCreator(userId, threadId));
-      dispatch(upVoteThreadActionCreator(userId, threadId));
-      await upVoteThread(threadId);
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncUpVoteThread = (userId, threadId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(unVoteThreadActionCreator(userId, threadId));
+    dispatch(upVoteThreadActionCreator(userId, threadId));
+    await upVoteThread(threadId);
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncDownVoteThread = (userId, threadId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(unVoteThreadActionCreator(userId, threadId));
-      dispatch(downVoteThreadActionCreator(userId, threadId));
-      await downVoteThread(threadId);
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncDownVoteThread = (userId, threadId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(unVoteThreadActionCreator(userId, threadId));
+    dispatch(downVoteThreadActionCreator(userId, threadId));
+    await downVoteThread(threadId);
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncUnVoteThread = (userId, threadId) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      dispatch(unVoteThreadActionCreator(userId, threadId));
-      await unVoteThread(threadId);
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncUnVoteThread = (userId, threadId) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    dispatch(unVoteThreadActionCreator(userId, threadId));
+    await unVoteThread(threadId);
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
-const asyncAddThread = (thread) =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      const threadData = await addThread(thread);
-      dispatch(addThreadActionCreator(threadData));
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncAddThread = (thread) => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    const threadData = await addThread(thread);
+    dispatch(addThreadActionCreator(threadData));
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
 export {
   receiveThreadsActionCreator,

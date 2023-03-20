@@ -12,17 +12,16 @@ const receiveLeaderboardsActionCreator = (leaderboards) => ({
   },
 });
 
-const asyncReceiveLeaderboards = () =>
-  async (dispatch) => {
-    dispatch(showLoading());
-    try {
-      const leaderboardsData = await getLeaderboards();
-      dispatch(receiveLeaderboardsActionCreator(leaderboardsData));
-    } catch (error) {
-      alert(error);
-    }
-    dispatch(hideLoading());
-  };
+const asyncReceiveLeaderboards = () => async (dispatch) => {
+  dispatch(showLoading());
+  try {
+    const leaderboardsData = await getLeaderboards();
+    dispatch(receiveLeaderboardsActionCreator(leaderboardsData));
+  } catch (error) {
+    alert(error);
+  }
+  dispatch(hideLoading());
+};
 
 export {
   ActionType,

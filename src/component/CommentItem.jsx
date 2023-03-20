@@ -5,6 +5,7 @@ import {
 } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import parse from 'html-react-parser';
+import PropTypes from 'prop-types';
 import { asyncDownVoteComment, asyncUnVoteComment, asyncUpVoteComment } from '../states/detailThread/action';
 import timeDiffFormatter from '../utils/timediffFormatter';
 
@@ -64,5 +65,11 @@ function CommentItem({ comment, authUser, threadId }) {
     </section>
   );
 }
+
+CommentItem.propTypes = {
+  comment: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
+  threadId: PropTypes.string.isRequired,
+};
 
 export default CommentItem;

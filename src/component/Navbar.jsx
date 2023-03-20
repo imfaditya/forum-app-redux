@@ -1,9 +1,11 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import {
   IoChatboxEllipsesOutline, IoPodiumOutline, IoLogOutOutline,
 } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import logo from '../assets/logo.svg';
 import { unsetAuthUserActionCreator } from '../states/authUser/action';
 
@@ -33,5 +35,14 @@ function Navbar({ authUser }) {
     </nav>
   );
 }
+
+Navbar.propTypes = {
+  authUser: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+  }),
+};
 
 export default Navbar;
