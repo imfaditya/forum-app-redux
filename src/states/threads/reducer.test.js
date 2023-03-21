@@ -214,4 +214,19 @@ describe('Threads Reducer Function', () => {
       },
     ]);
   });
+
+  it('should return the initial state when given by UNKNOWN ACTION', () => {
+    // Arrange
+    const threads = [];
+
+    const action = {
+      type: 'UNKNOWN',
+    };
+
+    // Action
+    const newState = threadsReducer(threads, action);
+
+    // Assert
+    expect(newState).toEqual(threads);
+  });
 });
