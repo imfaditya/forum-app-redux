@@ -1,8 +1,5 @@
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import {
-  addThread,
-  downVoteThread, unVoteThread, upVoteThread,
-} from '../../utils/api';
+import api from '../../utils/api';
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -55,7 +52,7 @@ const asyncUpVoteThread = (userId, threadId) => async (dispatch) => {
   try {
     dispatch(unVoteThreadActionCreator(userId, threadId));
     dispatch(upVoteThreadActionCreator(userId, threadId));
-    await upVoteThread(threadId);
+    await api.upVoteThread(threadId);
   } catch (error) {
     alert(error);
   }
@@ -67,7 +64,7 @@ const asyncDownVoteThread = (userId, threadId) => async (dispatch) => {
   try {
     dispatch(unVoteThreadActionCreator(userId, threadId));
     dispatch(downVoteThreadActionCreator(userId, threadId));
-    await downVoteThread(threadId);
+    await api.downVoteThread(threadId);
   } catch (error) {
     alert(error);
   }
@@ -78,7 +75,7 @@ const asyncUnVoteThread = (userId, threadId) => async (dispatch) => {
   dispatch(showLoading());
   try {
     dispatch(unVoteThreadActionCreator(userId, threadId));
-    await unVoteThread(threadId);
+    await api.unVoteThread(threadId);
   } catch (error) {
     alert(error);
   }
@@ -88,7 +85,7 @@ const asyncUnVoteThread = (userId, threadId) => async (dispatch) => {
 const asyncAddThread = (thread) => async (dispatch) => {
   dispatch(showLoading());
   try {
-    const threadData = await addThread(thread);
+    const threadData = await api.addThread(thread);
     dispatch(addThreadActionCreator(threadData));
   } catch (error) {
     alert(error);

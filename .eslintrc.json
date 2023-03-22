@@ -21,6 +21,7 @@
     "rules": {
         "no-alert": "off",
         "react/forbid-prop-types": 0,
-        "react/jsx-filename-extension": "off"
+        "react/jsx-filename-extension": "off",
+        "no-underscore-dangle": "off"
     }
 }

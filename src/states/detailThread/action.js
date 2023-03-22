@@ -1,9 +1,5 @@
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import {
-  addComment,
-  downVoteComment,
-  downVoteThread, getDetailThread, unVoteComment, unVoteThread, upVoteComment, upVoteThread,
-} from '../../utils/api';
+import api from '../../utils/api';
 
 const ActionType = {
   RECEIVE_DETAIL_THREAD: 'RECEIVE_DETAIL_THREAD',
@@ -87,7 +83,7 @@ const asyncReceiveDetailThread = (threadId) => async (dispatch) => {
   dispatch(showLoading());
   try {
     dispatch(clearDetailThreadActionCreator());
-    const detailThread = await getDetailThread(threadId);
+    const detailThread = await api.getDetailThread(threadId);
     dispatch(receiveDetailThreadActionCreator(detailThread));
   } catch (error) {
     alert(error);
@@ -100,7 +96,7 @@ const asyncUpVoteDetailThread = (userId, threadId) => async (dispatch) => {
   try {
     dispatch(unVoteDetailThreadActionCreator(userId));
     dispatch(upVoteDetailThreadActionCreator(userId));
-    await upVoteThread(threadId);
+    await api.upVoteThread(threadId);
   } catch (error) {
     alert(error);
   }
@@ -112,7 +108,7 @@ const asyncDownVoteDetailThread = (userId, threadId) => async (dispatch) => {
   try {
     dispatch(unVoteDetailThreadActionCreator(userId));
     dispatch(downVoteDetailThreadActionCreator(userId));
-    await downVoteThread(threadId);
+    await api.downVoteThread(threadId);
   } catch (error) {
     alert(error);
   }
@@ -123,7 +119,7 @@ const asyncUnVoteDetailThread = (userId, threadId) => async (dispatch) => {
   dispatch(showLoading());
   try {
     dispatch(unVoteDetailThreadActionCreator(userId));
-    await unVoteThread(threadId);
+    await api.unVoteThread(threadId);
   } catch (error) {
     alert(error);
   }
@@ -135,7 +131,7 @@ const asyncUpVoteComment = (userId, threadId, commentId) => async (dispatch) => 
   try {
     dispatch(unVoteCommentActionCreator(userId, commentId));
     dispatch(upVoteCommentActionCreator(userId, commentId));
-    await upVoteComment(threadId, commentId);
+    await api.upVoteComment(threadId, commentId);
   } catch (error) {
     alert(error);
   }
@@ -147,7 +143,7 @@ const asyncDownVoteComment = (userId, threadId, commentId) => async (dispatch) =
   try {
     dispatch(unVoteCommentActionCreator(userId, commentId));
     dispatch(downVoteCommentActionCreator(userId, commentId));
-    await downVoteComment(threadId, commentId);
+    await api.downVoteComment(threadId, commentId);
   } catch (error) {
     alert(error);
   }
@@ -158,7 +154,7 @@ const asyncUnVoteComment = (userId, threadId, commentId) => async (dispatch) => 
   dispatch(showLoading());
   try {
     dispatch(unVoteCommentActionCreator(userId, commentId));
-    await unVoteComment(threadId, commentId);
+    await api.unVoteComment(threadId, commentId);
   } catch (error) {
     alert(error);
   }
@@ -168,7 +164,7 @@ const asyncUnVoteComment = (userId, threadId, commentId) => async (dispatch) => 
 const asyncaddComment = (threadId, content) => async (dispatch) => {
   dispatch(showLoading());
   try {
-    const commentData = await addComment(threadId, content);
+    const commentData = await api.addComment(threadId, content);
     dispatch(addCommentActionCreator(commentData));
   } catch (error) {
     alert(error);
