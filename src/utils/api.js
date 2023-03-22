@@ -22,6 +22,7 @@ const api = (() => {
     });
 
     const responseJSON = await response.json();
+    console.log(responseJSON);
 
     if (responseJSON.status !== 'success') {
       throw new Error(responseJSON.message);
