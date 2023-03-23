@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import CommentForm from '../component/CommentForm';
 import CommentsList from '../component/CommentsList';
 import ThreadDetail from '../component/ThreadDetail';
-import { asyncReceiveDetailThread } from '../states/detailThread/action';
+import { asyncaddComment, asyncReceiveDetailThread } from '../states/detailThread/action';
 
 function DetailPage() {
   const { detailThread, authUser } = useSelector((state) => state);
@@ -19,6 +19,10 @@ function DetailPage() {
     return null;
   }
 
+  const onCommentSubmit = ({ comment }) => {
+    dispatch(asyncaddComment(detailThread.id, comment));
+  };
+
   return (
     <>
       <ThreadDetail detailThread={detailThread} authUser={authUser} />
@@ -28,7 +32,7 @@ function DetailPage() {
         {detailThread.comments.length}
         )
       </h3>
-      <CommentForm threadId={detailThread.id} />
+      <CommentForm onCommentSubmit={onCommentSubmit} />
       <CommentsList
         comments={detailThread.comments}
         threadId={detailThread.id}
