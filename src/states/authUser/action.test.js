@@ -18,6 +18,8 @@ const fakeAuthUserResponse = {
   avatar: 'https://generated-image-url.jpg',
 };
 
+const fakeErrorResponse = new Error('Ups, something went wrong');
+
 describe('asyncSetAuthUser thunk', () => {
   beforeEach(() => {
     api._getAuthUserProfile = api.getAuthUserProfile;
@@ -47,6 +49,24 @@ describe('asyncSetAuthUser thunk', () => {
     // Assert
     expect(dispatch).toHaveBeenCalledWith(showLoading());
     expect(dispatch).toHaveBeenCalledWith(setAuthUserActionCreator(fakeAuthUserResponse));
+    expect(dispatch).toHaveBeenCalledWith(hideLoading());
+  });
+
+  it('should dispatch action and call alert correctly when data fetching failed', async () => {
+    // Arrange
+    const email = 'tes@123.com';
+    const password = '123456';
+    api.login = () => Promise.reject(fakeErrorResponse);
+    api.getAuthUserProfile = () => Promise.reject(fakeErrorResponse);
+    const dispatch = jest.fn();
+    window.alert = jest.fn();
+
+    // Action
+    await asyncSetAuthUser({ email, password })(dispatch);
+
+    // Assert
+    expect(dispatch).toHaveBeenCalledWith(showLoading());
+    expect(window.alert).toHaveBeenCalledWith(fakeErrorResponse);
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 });

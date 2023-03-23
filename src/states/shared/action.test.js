@@ -77,7 +77,7 @@ describe('asyncReceiveThreadsUsersCategories thunk', () => {
   it('should dispatch action and call alert correctly when data fetching failed', async () => {
     // Arrange
     api.getThreads = () => Promise.reject(fakeErrorResponse);
-    api.getUsers = () => Promise.resolve(fakeErrorResponse);
+    api.getUsers = () => Promise.reject(fakeErrorResponse);
     const dispatch = jest.fn();
     window.alert = jest.fn();
 
