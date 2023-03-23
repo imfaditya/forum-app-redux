@@ -6,7 +6,10 @@ const api = (() => {
   }
 
   function getAccessToken() {
-    localStorage.getItem('auth_token');
+    return new Promise((resolve) => {
+      const token = localStorage.getItem('auth_token');
+      resolve(token);
+    });
   }
 
   async function login({ email, password }) {
@@ -22,9 +25,9 @@ const api = (() => {
     });
 
     const responseJSON = await response.json();
-    console.log(responseJSON);
 
     if (responseJSON.status !== 'success') {
+      alert('login');
       throw new Error(responseJSON.message);
     }
 
@@ -35,7 +38,7 @@ const api = (() => {
     const response = await fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${await getAccessToken()}`,
       },
     });
 
@@ -90,7 +93,7 @@ const api = (() => {
     const response = await fetch(`${BASE_URL}/threads/${threadId}/up-vote`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${await getAccessToken()}`,
       },
     });
 
@@ -104,7 +107,7 @@ const api = (() => {
     const response = await fetch(`${BASE_URL}/threads/${threadId}/down-vote`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${await getAccessToken()}`,
       },
     });
 
@@ -118,7 +121,7 @@ const api = (() => {
     const response = await fetch(`${BASE_URL}/threads/${threadId}/neutral-vote`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${await getAccessToken()}`,
       },
     });
 
@@ -132,7 +135,7 @@ const api = (() => {
     const response = await fetch(`${BASE_URL}/threads/${threadId}/comments/${commentId}/up-vote`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${await getAccessToken()}`,
       },
     });
 
@@ -146,7 +149,7 @@ const api = (() => {
     const response = await fetch(`${BASE_URL}/threads/${threadId}/comments/${commentId}/down-vote`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${await getAccessToken()}`,
       },
     });
 
@@ -160,7 +163,7 @@ const api = (() => {
     const response = await fetch(`${BASE_URL}/threads/${threadId}/comments/${commentId}/neutral-vote`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${await getAccessToken()}`,
       },
     });
 
@@ -174,7 +177,7 @@ const api = (() => {
     const response = await fetch(`${BASE_URL}/threads/${threadId}/comments`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${await getAccessToken()}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -194,7 +197,7 @@ const api = (() => {
     const response = await fetch(`${BASE_URL}/threads`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${await getAccessToken()}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
