@@ -11,7 +11,7 @@ function CommentForm({ onCommentSubmit }) {
   return (
     <form className="comment-form">
       <div className="div-editable" data-testid="comment" contentEditable="true" onInput={onCommentChange} />
-      <button type="button" onClick={() => onCommentSubmit(comment)}>Post Comment</button>
+      <button type="button" onClick={() => onCommentSubmit({ comment })}>Post Comment</button>
     </form>
   );
 }

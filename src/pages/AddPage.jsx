@@ -8,7 +8,7 @@ function AddPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onThreadSubmit = (title, category, content) => {
+  const onThreadSubmit = ({ title, category, content }) => {
     dispatch(asyncAddThread({ title, category, content }));
     navigate('/');
   };

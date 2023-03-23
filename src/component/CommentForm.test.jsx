@@ -40,6 +40,6 @@ describe('CommentForm Component', () => {
     await act(async () => userEvent.click(submitButton));
 
     // Assert
-    expect(mockOnCommentSubmit).toBeCalledWith('comment');
+    expect(mockOnCommentSubmit).toBeCalledWith({ comment: 'comment' });
   });
 });
