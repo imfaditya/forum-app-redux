@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
 
 function LoginForm({ login }) {
@@ -13,5 +14,9 @@ function LoginForm({ login }) {
     </form>
   );
 }
+
+LoginForm.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 
 export default LoginForm;

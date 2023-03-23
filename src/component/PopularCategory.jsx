@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { setCategoryActionCreator, unsetCategoryActionCreator } from '../states/categories/action';
 
 function PopularCategory({ categories }) {
@@ -43,5 +44,9 @@ function PopularCategory({ categories }) {
     </section>
   );
 }
+
+PopularCategory.propTypes = {
+  categories: PropTypes.object.isRequired,
+};
 
 export default PopularCategory;

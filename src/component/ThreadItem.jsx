@@ -1,5 +1,6 @@
 import parse from 'html-react-parser';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   MdThumbUpOffAlt, MdThumbDownOffAlt, MdThumbUp, MdThumbDown,
 } from 'react-icons/md';
@@ -84,5 +85,10 @@ function ThreadItem({ thread, authUser }) {
     </article>
   );
 }
+
+ThreadItem.propTypes = {
+  thread: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
+};
 
 export default ThreadItem;

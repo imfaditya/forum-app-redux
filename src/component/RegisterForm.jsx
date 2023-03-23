@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
-import { register } from '../utils/api';
+import api from '../utils/api';
 
 function RegisterForm() {
   const [name, setName] = useInput('');
@@ -11,7 +11,7 @@ function RegisterForm() {
 
   const onRegister = async (event) => {
     event.preventDefault();
-    const response = await register({ name, email, password });
+    const response = await api.register({ name, email, password });
     if (response.status === 'success') {
       navigate('/');
     } else {

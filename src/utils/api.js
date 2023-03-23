@@ -1,260 +1,275 @@
-const BASE_URL = 'https://forum-api.dicoding.dev/v1';
+const api = (() => {
+  const BASE_URL = 'https://forum-api.dicoding.dev/v1';
 
-const putAccessToken = (token) => {
-  localStorage.setItem('auth_token', token);
-};
-
-const getAccessToken = () => localStorage.getItem('auth_token');
-
-const login = async ({ email, password }) => {
-  const response = await fetch(`${BASE_URL}/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  });
-
-  const responseJSON = await response.json();
-
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
+  function putAccessToken(token) {
+    localStorage.setItem('auth_token', token);
   }
 
-  return responseJSON.data.token;
-};
-
-const getAuthUserProfile = async () => {
-  const response = await fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
-
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
+  function getAccessToken() {
+    return new Promise((resolve) => {
+      const token = localStorage.getItem('auth_token');
+      resolve(token);
+    });
   }
 
-  return responseJSON.data.user;
-};
-
-const getThreads = async () => {
-  const response = await fetch(`${BASE_URL}/threads`, {
-    method: 'GET',
-  });
-
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
+  function clearAccessToken() {
+    localStorage.removeItem('auth_token');
   }
 
-  return responseJSON.data.threads;
-};
+  async function login({ email, password }) {
+    const response = await fetch(`${BASE_URL}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
 
-const getUsers = async () => {
-  const response = await fetch(`${BASE_URL}/users`, {
-    method: 'GET',
-  });
+    const responseJSON = await response.json();
 
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
+    if (responseJSON.status !== 'success') {
+      alert('login');
+      throw new Error(responseJSON.message);
+    }
+
+    return responseJSON.data.token;
   }
 
-  return responseJSON.data.users;
-};
+  async function getAuthUserProfile() {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+      },
+    });
 
-const getDetailThread = async (threadId) => {
-  const response = await fetch(`${BASE_URL}/threads/${threadId}`, {
-    method: 'GET',
-  });
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
 
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
+    return responseJSON.data.user;
   }
 
-  return responseJSON.data.detailThread;
-};
+  async function getThreads() {
+    const response = await fetch(`${BASE_URL}/threads`, {
+      method: 'GET',
+    });
 
-const upVoteThread = async (threadId) => {
-  const response = await fetch(`${BASE_URL}/threads/${threadId}/up-vote`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
 
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
-  }
-};
-
-const downVoteThread = async (threadId) => {
-  const response = await fetch(`${BASE_URL}/threads/${threadId}/down-vote`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
-
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
-  }
-};
-
-const unVoteThread = async (threadId) => {
-  const response = await fetch(`${BASE_URL}/threads/${threadId}/neutral-vote`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
-
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
-  }
-};
-
-const upVoteComment = async (threadId, commentId) => {
-  const response = await fetch(`${BASE_URL}/threads/${threadId}/comments/${commentId}/up-vote`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
-
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
-  }
-};
-
-const downVoteComment = async (threadId, commentId) => {
-  const response = await fetch(`${BASE_URL}/threads/${threadId}/comments/${commentId}/down-vote`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
-
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
-  }
-};
-
-const unVoteComment = async (threadId, commentId) => {
-  const response = await fetch(`${BASE_URL}/threads/${threadId}/comments/${commentId}/neutral-vote`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
-
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
-  }
-};
-
-const addComment = async (threadId, content) => {
-  const response = await fetch(`${BASE_URL}/threads/${threadId}/comments`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      content,
-    }),
-  });
-
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
+    return responseJSON.data.threads;
   }
 
-  return responseJSON.data.comment;
-};
+  async function getUsers() {
+    const response = await fetch(`${BASE_URL}/users`, {
+      method: 'GET',
+    });
 
-const addThread = async (thread) => {
-  const response = await fetch(`${BASE_URL}/threads`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title: thread.title,
-      body: thread.content,
-      category: thread.category,
-    }),
-  });
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
 
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
+    return responseJSON.data.users;
   }
 
-  return responseJSON.data.thread;
-};
+  async function getDetailThread(threadId) {
+    const response = await fetch(`${BASE_URL}/threads/${threadId}`, {
+      method: 'GET',
+    });
 
-const register = async (account) => {
-  const response = await fetch(`${BASE_URL}/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: account.name,
-      email: account.email,
-      password: account.password,
-    }),
-  });
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
 
-  const responseJSON = await response.json();
-  const { status, message } = responseJSON;
-  return { status, message };
-};
-
-const getLeaderboards = async () => {
-  const response = await fetch(`${BASE_URL}/leaderboards`, {
-    method: 'GET',
-  });
-
-  const responseJSON = await response.json();
-  if (responseJSON.status !== 'success') {
-    throw new Error(responseJSON.message);
+    return responseJSON.data.detailThread;
   }
 
-  return responseJSON.data.leaderboards;
-};
+  async function upVoteThread(threadId) {
+    const response = await fetch(`${BASE_URL}/threads/${threadId}/up-vote`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+      },
+    });
 
-export {
-  login,
-  putAccessToken,
-  getAccessToken,
-  getAuthUserProfile,
-  getThreads,
-  getUsers,
-  getDetailThread,
-  upVoteThread,
-  downVoteThread,
-  unVoteThread,
-  upVoteComment,
-  downVoteComment,
-  unVoteComment,
-  addComment,
-  addThread,
-  register,
-  getLeaderboards,
-};
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
+  }
+
+  async function downVoteThread(threadId) {
+    const response = await fetch(`${BASE_URL}/threads/${threadId}/down-vote`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+      },
+    });
+
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
+  }
+
+  async function unVoteThread(threadId) {
+    const response = await fetch(`${BASE_URL}/threads/${threadId}/neutral-vote`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+      },
+    });
+
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
+  }
+
+  async function upVoteComment(threadId, commentId) {
+    const response = await fetch(`${BASE_URL}/threads/${threadId}/comments/${commentId}/up-vote`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+      },
+    });
+
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
+  }
+
+  async function downVoteComment(threadId, commentId) {
+    const response = await fetch(`${BASE_URL}/threads/${threadId}/comments/${commentId}/down-vote`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+      },
+    });
+
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
+  }
+
+  async function unVoteComment(threadId, commentId) {
+    const response = await fetch(`${BASE_URL}/threads/${threadId}/comments/${commentId}/neutral-vote`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+      },
+    });
+
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
+  }
+
+  async function addComment(threadId, content) {
+    const response = await fetch(`${BASE_URL}/threads/${threadId}/comments`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content,
+      }),
+    });
+
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
+
+    return responseJSON.data.comment;
+  }
+
+  async function addThread(thread) {
+    const response = await fetch(`${BASE_URL}/threads`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: thread.title,
+        body: thread.content,
+        category: thread.category,
+      }),
+    });
+
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
+
+    return responseJSON.data.thread;
+  }
+
+  async function register(account) {
+    const response = await fetch(`${BASE_URL}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: account.name,
+        email: account.email,
+        password: account.password,
+      }),
+    });
+
+    const responseJSON = await response.json();
+    const { status, message } = responseJSON;
+    return { status, message };
+  }
+
+  async function getLeaderboards() {
+    const response = await fetch(`${BASE_URL}/leaderboards`, {
+      method: 'GET',
+    });
+
+    const responseJSON = await response.json();
+    if (responseJSON.status !== 'success') {
+      throw new Error(responseJSON.message);
+    }
+
+    return responseJSON.data.leaderboards;
+  }
+
+  return {
+    putAccessToken,
+    getAccessToken,
+    login,
+    getAuthUserProfile,
+    getThreads,
+    getUsers,
+    getDetailThread,
+    upVoteThread,
+    downVoteThread,
+    unVoteThread,
+    upVoteComment,
+    downVoteComment,
+    unVoteComment,
+    addComment,
+    addThread,
+    register,
+    getLeaderboards,
+    clearAccessToken,
+  };
+})();
+
+export default api;
