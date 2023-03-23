@@ -46,10 +46,9 @@ describe('LoginForm Component', () => {
     const passwordInput = screen.getByPlaceholderText('Password');
     const loginButton = screen.getByRole('button', { name: 'Login' });
 
+    // Action
     await act(async () => userEvent.type(emailInput, 'email@test.com'));
     await act(async () => userEvent.type(passwordInput, 'password'));
-
-    // Action
     await act(async () => userEvent.click(loginButton));
 
     // Assert
