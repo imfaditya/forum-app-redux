@@ -12,6 +12,10 @@ const api = (() => {
     });
   }
 
+  function clearAccessToken() {
+    localStorage.removeItem('auth_token');
+  }
+
   async function login({ email, password }) {
     const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
@@ -264,6 +268,7 @@ const api = (() => {
     addThread,
     register,
     getLeaderboards,
+    clearAccessToken,
   };
 })();
 

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import logo from '../assets/logo.svg';
 import { unsetAuthUserActionCreator } from '../states/authUser/action';
+import api from '../utils/api';
 
 function Navbar({ authUser }) {
   const dispatch = useDispatch();
@@ -15,6 +16,11 @@ function Navbar({ authUser }) {
   if (!authUser) {
     return null;
   }
+
+  const logout = () => {
+    dispatch(unsetAuthUserActionCreator());
+    api.clearAccessToken();
+  };
 
   return (
     <nav>
@@ -28,7 +34,7 @@ function Navbar({ authUser }) {
         <Link to="/leaderboards" type="button" title="Leaderboards">
           <IoPodiumOutline />
         </Link>
-        <button title="Log Out" type="button" onClick={() => dispatch(unsetAuthUserActionCreator())}>
+        <button title="Log Out" type="button" onClick={logout}>
           <IoLogOutOutline />
         </button>
       </section>
