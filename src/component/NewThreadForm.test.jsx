@@ -51,4 +51,28 @@ describe('NewThreadForm Component', () => {
     // Assert
     expect(contentInput.textContent).toBe('content');
   });
+
+  it('should call onThreadSubmit when submit button is clicked', async () => {
+    // Arrange
+    const mockOnThreadSubmit = jest.fn();
+    await act(async () => render(<NewThreadForm onThreadSubmit={mockOnThreadSubmit} />));
+    const titleInput = screen.getByPlaceholderText('Title...');
+    const categoryInput = screen.getByPlaceholderText('Category...');
+    const contentInput = screen.getByTestId('content');
+    const submitButton = screen.getByRole('button');
+
+    // Action
+    await act(async () => userEvent.type(titleInput, 'title'));
+    await act(async () => userEvent.type(categoryInput, 'category'));
+    await act(async () => userEvent.click(contentInput));
+    await act(async () => userEvent.keyboard('content'));
+    await act(async () => userEvent.click(submitButton));
+
+    // Assert
+    expect(mockOnThreadSubmit).toBeCalledWith({
+      title: 'title',
+      category: 'category',
+      content: 'content',
+    });
+  });
 });
