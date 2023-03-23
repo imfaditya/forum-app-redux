@@ -7,9 +7,9 @@
  *
 */
 
-import { hideLoading, showLoading } from "react-redux-loading-bar";
-import api from "../../utils/api";
-import { asyncReceiveLeaderboards, receiveLeaderboardsActionCreator } from "./action";
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
+import api from '../../utils/api';
+import { asyncReceiveLeaderboards, receiveLeaderboardsActionCreator } from './action';
 
 const fakeLeaderboardsResponse = [
   {
@@ -60,5 +60,20 @@ describe('asyncReceiveLeaderboards thunk', () => {
       receiveLeaderboardsActionCreator(fakeLeaderboardsResponse),
     );
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
+  });
+
+  it('should dispatch action and call alert correctly when data fetching failed', async () => {
+    // Arrange
+    api.getLeaderboards = () => Promise.reject(fakeErrorResponse);
+    const dispatch = jest.fn();
+    window.alert = jest.fn();
+
+    // Action
+    await asyncReceiveLeaderboards()(dispatch);
+
+    // Assert
+    expect(dispatch).toHaveBeenCalledWith(showLoading());
+    expect(dispatch).toHaveBeenCalledWith(hideLoading());
+    expect(window.alert).toHaveBeenCalledWith(fakeErrorResponse);
   });
 });
