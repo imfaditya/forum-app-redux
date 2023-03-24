@@ -23,8 +23,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npx eslint . --ext .js --ext .jsx",
-    "e2e": "cypress run"
+    "lint": "npx eslint ./src --ext .js --ext .jsx",
+    "e2e": "cypress run",
+    "ci:test": "react-scripts test --watchAll=false && start-server-and-test start http-get://0.0.0.0:3000 e2e"
   },
   "eslintConfig": {
     "extends": [

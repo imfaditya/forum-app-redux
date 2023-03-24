@@ -8,7 +8,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "plugin:cypress/recommended"
     ],
     "overrides": [
     ],
@@ -25,6 +26,12 @@
         "no-alert": "off",
         "react/forbid-prop-types": 0,
         "react/jsx-filename-extension": "off",
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "cypress/no-assigning-return-values": "error",
+        "cypress/no-unnecessary-waiting": "error",
+        "cypress/assertion-before-screenshot": "warn",
+        "cypress/no-force": "warn",
+        "cypress/no-async-tests": "error",
+        "cypress/no-pause": "error"
     }
 }
