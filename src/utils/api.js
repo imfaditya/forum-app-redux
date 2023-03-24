@@ -31,7 +31,6 @@ const api = (() => {
     const responseJSON = await response.json();
 
     if (responseJSON.status !== 'success') {
-      alert('login');
       throw new Error(responseJSON.message);
     }
 
