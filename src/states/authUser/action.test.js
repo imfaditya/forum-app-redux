@@ -66,7 +66,7 @@ describe('asyncSetAuthUser thunk', () => {
 
     // Assert
     expect(dispatch).toHaveBeenCalledWith(showLoading());
-    expect(window.alert).toHaveBeenCalledWith(fakeErrorResponse);
+    expect(window.alert).toHaveBeenCalledWith(fakeErrorResponse.message);
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 });
