@@ -1,5 +1,7 @@
 import React from 'react';
-import LeaderboardsList from '../component/LeaderboardsList';
+import loadable from '@loadable/component';
+
+const LeaderboardsList = loadable(() => import('../component/LeaderboardsList'));
 
 function LeaderboardsPage() {
   return (

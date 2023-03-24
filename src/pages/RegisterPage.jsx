@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import loadable from '@loadable/component';
 import logo from '../assets/logo.svg';
-import RegisterForm from '../component/RegisterForm';
 import api from '../utils/api';
+
+const RegisterForm = loadable(() => import('../component/RegisterForm'));
 
 function RegisterPage() {
   const navigate = useNavigate();

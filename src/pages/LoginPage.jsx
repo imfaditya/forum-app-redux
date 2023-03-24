@@ -1,9 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import loadable from '@loadable/component';
 import logo from '../assets/logo.svg';
-import LoginForm from '../component/LoginForm';
 import { asyncSetAuthUser } from '../states/authUser/action';
+
+const LoginForm = loadable(() => import('../component/LoginForm'));
 
 function LoginPage() {
   const dispatch = useDispatch();

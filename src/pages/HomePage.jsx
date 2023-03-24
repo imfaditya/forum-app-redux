@@ -1,9 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PopularCategory from '../component/PopularCategory';
-import ThreadsList from '../component/ThreadsList';
+import loadable from '@loadable/component';
 import asyncReceiveThreadsUsersCategories from '../states/shared/action';
+
+const ThreadsList = loadable(() => import('../component/ThreadsList'));
+const PopularCategory = loadable(() => import('../component/PopularCategory'));
 
 function HomePage() {
   const {
