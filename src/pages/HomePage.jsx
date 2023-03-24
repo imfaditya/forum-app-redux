@@ -25,7 +25,7 @@ function HomePage() {
     <>
       <h2><b>Popular Category</b></h2>
       <PopularCategory categories={categories} />
-      <h2><b>Threads</b></h2>
+      <h2><b>Available Threads</b></h2>
       <Link to="/add" className="new-thread-button">
         Create New Thread
       </Link>

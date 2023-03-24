@@ -5,7 +5,7 @@ const authUserReducer = (authUser = null, action = {}) => {
     case ActionType.SET_AUTH_USER:
       return action.payload.authUser;
     case ActionType.UNSET_AUTH_USER:
-      return 1;
+      return null;
     default:
       return authUser;
   }
