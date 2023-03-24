@@ -1,8 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import NewThreadForm from '../component/NewThreadForm';
+import loadable from '@loadable/component';
 import { asyncAddThread } from '../states/threads/action';
+
+const NewThreadForm = loadable(() => import('../component/NewThreadForm'));
 
 function AddPage() {
   const dispatch = useDispatch();

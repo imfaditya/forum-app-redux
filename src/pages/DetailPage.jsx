@@ -1,10 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import CommentForm from '../component/CommentForm';
-import CommentsList from '../component/CommentsList';
-import ThreadDetail from '../component/ThreadDetail';
+import loadable from '@loadable/component';
 import { asyncaddComment, asyncReceiveDetailThread } from '../states/detailThread/action';
+
+const CommentForm = loadable(() => import('../component/CommentForm'));
+const CommentsList = loadable(() => import('../component/CommentsList'));
+const ThreadDetail = loadable(() => import('../component/ThreadDetail'));
 
 function DetailPage() {
   const { detailThread, authUser } = useSelector((state) => state);

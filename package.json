@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@loadable/component": "^5.15.3",
     "@reduxjs/toolkit": "^1.9.3",
     "html-react-parser": "^3.0.9",
     "prop-types": "^15.8.1",
